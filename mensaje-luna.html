@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensaje a la Luna</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #0a1128;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(to bottom, #0a1128, #1a2456);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        
+        .special-star {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: floatStar 10s ease-in-out infinite, twinkleStar 3s ease-in-out infinite;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        .special-star-inner {
+            width: 0;
+            height: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .special-star-inner::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 40px solid #ffcc33;
+        }
+        
+        .special-star-inner::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 40px solid #ffcc33;
+            top: 15px;
+        }
+        
+        .star-message {
+            position: absolute;
+            color: #0a1128;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 3;
+            width: 40px;
+        }
+        
+        @keyframes floatStar {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(5deg); }
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(15px) rotate(-5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        @keyframes twinkleStar {
+            0% { filter: drop-shadow(0 0 5px rgba(255, 204, 51, 0.7)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255, 204, 51, 1)); }
+            100% { filter: drop-shadow(0 0 5px rgba(255, 204, 51, 0.7)); }
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 40px;
+            z-index: 1;
+            background-color: rgba(10, 17, 40, 0.7);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .moon {
+            position: absolute;
+            top: -120px;
+            right: -80px;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            box-shadow: 
+                inset -40px -10px 0 0 rgba(200, 200, 200, 0.8),
+                0 0 40px 10px rgba(255, 255, 255, 0.4);
+            animation: float 8s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        /* Cráteres de la luna */
+        .crater {
+            position: absolute;
+            background-color: #d0d0d0;
+            border-radius: 50%;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .message {
+            font-size: 24px;
+            line-height: 1.6;
+            margin: 30px 0;
+            color: #f8f9fa;
+            font-style: italic;
+        }
+        
+        .highlight {
+            color: #e9c46a;
+            font-weight: bold;
+            animation: glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px rgba(233, 196, 106, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(233, 196, 106, 0.8); }
+            100% { text-shadow: 0 0 5px rgba(233, 196, 106, 0.5); }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <div class="moon" id="moon"></div>
+        <h1>Mensaje a las Estrellas</h1>
+        <div class="message">
+            "<span class="highlight">ESTUDIA SEÑORITA</span> <br>
+            PARA QUE EN UN FUTURO <br>
+            ME ACOMPAÑES A LA LUNA"
+        </div>
+    </div>
+
+    <script>
+        // Create stars
+        const starsContainer = document.getElementById('stars');
+        const starsCount = 150;
+        
+        for (let i = 0; i < starsCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Random position
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            
+            // Random size
+            const size = Math.random() * 3;
+            
+            // Random animation delay
+            const delay = Math.random() * 5;
+            
+            star.style.left = `${left}%`;
+            star.style.top = `${top}%`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+        
+        // Create moon craters
+        const moon = document.getElementById('moon');
+        const cratersCount = 8;
+        
+        for (let i = 0; i < cratersCount; i++) {
+            const crater = document.createElement('div');
+            crater.className = 'crater';
+            
+            // Random position within the moon
+            const left = 20 + Math.random() * 60;
+            const top = 20 + Math.random() * 60;
+            
+            // Random size
+            const size = 5 + Math.random() * 20;
+            
+            crater.style.left = `${left}%`;
+            crater.style.top = `${top}%`;
+            crater.style.width = `${size}px`;
+            crater.style.height = `${size}px`;
+            
+            moon.appendChild(crater);
+        }
+        
+        // Create special stars with "Tu puedes ♡" message
+        const specialStarsCount = 5;
+        
+        for (let i = 0; i < specialStarsCount; i++) {
+            const specialStar = document.createElement('div');
+            specialStar.className = 'special-star';
+            
+            // Calculate position to spread them around the container
+            const containerRect = document.querySelector('.container').getBoundingClientRect();
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Position them around the container, not inside it
+            let left, top;
+            
+            // Create different positions for different stars
+            switch(i) {
+                case 0:
+                    left = Math.max(50, containerRect.left - 100 + Math.random() * 50);
+                    top = Math.max(50, containerRect.top - 100 + Math.random() * 50);
+                    break;
+                case 1:
+                    left = Math.min(windowWidth - 100, containerRect.right + 50 + Math.random() * 50);
+                    top = Math.max(50, containerRect.top - 50 + Math.random() * 100);
+                    break;
+                case 2:
+                    left = Math.max(50, containerRect.left - 50 + Math.random() * 100);
+                    top = Math.min(windowHeight - 100, containerRect.bottom + 50 + Math.random() * 50);
+                    break;
+                case 3:
+                    left = Math.min(windowWidth - 100, containerRect.right + 50 + Math.random() * 50);
+                    top = Math.min(windowHeight - 100, containerRect.bottom + 50 + Math.random() * 50);
+                    break;
+                case 4:
+                    left = containerRect.left + containerRect.width / 2 - 40 + Math.random() * 80;
+                    top = Math.max(50, containerRect.top - 150);
+                    break;
+            }
+            
+            specialStar.style.left = `${left}px`;
+            specialStar.style.top = `${top}px`;
+            
+            // Unique animation delay
+            const delay = i * 1.5;
+            specialStar.style.animationDelay = `${delay}s`;
+            
+            // Create inner star shape
+            const innerStar = document.createElement('div');
+            innerStar.className = 'special-star-inner';
+            
+            // Add message
+            const message = document.createElement('div');
+            message.className = 'star-message';
+            message.textContent = "Tu puedes ♡";
+            
+            specialStar.appendChild(innerStar);
+            specialStar.appendChild(message);
+            document.body.appendChild(specialStar);
+            
+            // Make stars interactive
+            specialStar.addEventListener('click', function() {
+                this.style.transform = 'scale(1.3)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 500);
+            });
+        }
+    </script>
+</body>
+</html>
